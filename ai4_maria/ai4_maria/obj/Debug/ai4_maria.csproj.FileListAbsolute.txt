@@ -1,0 +1,7 @@
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\ai\ai4_maria\ai4_maria\bin\Debug\ai4_maria.exe.config
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\ai\ai4_maria\ai4_maria\bin\Debug\ai4_maria.exe
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\ai\ai4_maria\ai4_maria\bin\Debug\ai4_maria.pdb
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\ai\ai4_maria\ai4_maria\obj\Debug\ai4_maria.csproj.CoreCompileInputs.cache
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\ai\ai4_maria\ai4_maria\obj\Debug\ai4_maria.exe
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\ai\ai4_maria\ai4_maria\obj\Debug\ai4_maria.pdb
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\ai\ai4_maria\ai4_maria\obj\Debug\ai4_maria.csprojResolveAssemblyReference.cache
