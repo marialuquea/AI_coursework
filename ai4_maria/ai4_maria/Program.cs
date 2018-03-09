@@ -90,7 +90,7 @@ namespace ai4_maria
             Boolean areConnected = connected[cave1 - 1][cave2 - 1];
             Console.WriteLine("Cave " + cave1 + " and cave " + cave2 + " are connected: " + areConnected);
 
-            
+
             //Generate toCavesList
             for (int i = 1; i < caves.Count() + 1; i++)
             {
@@ -102,7 +102,7 @@ namespace ai4_maria
                     if (c.CaveID == i)
                     {
                         tempCave = c;
-                        Console.WriteLine("tempCave: "+tempCave.toString());
+                        Console.WriteLine("tempCave: " + tempCave.toString());
                     }
                 }
 
@@ -110,27 +110,24 @@ namespace ai4_maria
                 {
                     foreach (Cave d in caves)
                     {
-                        if (d.CaveID == i)
+                        if (d.CaveID == j)
                         {
                             possibleChild = d;
-                            //Console.WriteLine("3");
+                            //Console.WriteLine("possible child: " + possibleChild.toString());
                         }
                     }
 
                     int cave1ID = tempCave.CaveID;
                     int cave2ID = possibleChild.CaveID;
-                    //Console.WriteLine("4");
+                    //Console.WriteLine("set caves ids");
 
                     Boolean check = connected[cave1ID - 1][cave2ID - 1];
-                    //Console.WriteLine("hi: "+check);
+                    Console.WriteLine("check: " + check);
 
-                    Boolean yes = true;
-                    //Console.WriteLine(".");
-
-                    if (!tempCave.Equals(possibleChild) && yes)
+                    if (!tempCave.Equals(possibleChild) && check)
                     {
                         tempCave.addToCavesList(possibleChild);
-                        Console.WriteLine("it works");
+                        Console.WriteLine("possible child added");
                     }
                 }
 
@@ -138,12 +135,12 @@ namespace ai4_maria
                 //print caves to list
                 foreach(Cave a in tempCave.ToCavesList)
                 {
-                    Console.WriteLine("Cave "+tempCave.CaveID+" can go to caves: "+ a.CaveID);
+                    Console.WriteLine("Cave " + tempCave.CaveID + " can go to caves: " + a.CaveID);
                 }
-                
+
             }
 
-            
+            //YASSSSS IT WORKSSS
 
             Console.ReadKey();
 
