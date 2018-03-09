@@ -12,8 +12,7 @@ namespace ai4_maria
         {
             List<Cave> caves = new List<Cave>();
             int caveID = 1;
-
-
+            
             //Read input file
             string text = System.IO.File.ReadAllText(@"C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\caverns files\input2.cav");
             Console.WriteLine("Raw data: " + text);
@@ -45,17 +44,8 @@ namespace ai4_maria
             {
                 Console.WriteLine(c.toString());
             }
-
-
-            //line 101 in cavParses of darwon
-            //boolean[][] connectedMatrix = this.buildConnectivityMatrix(noOfCaves, data);
-
-
-
-
-
+            
             //Build connectivity matrix
-
             //Declare the array
 
             Boolean[][] connected = new Boolean[noOfCaves][];
@@ -140,8 +130,11 @@ namespace ai4_maria
 
             }
 
-            //YASSSSS IT WORKSSS
-            //HIIIIII
+            
+
+
+
+
 
             Console.ReadKey();
 
