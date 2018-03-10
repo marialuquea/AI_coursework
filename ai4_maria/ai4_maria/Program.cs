@@ -14,12 +14,11 @@ namespace ai4_maria
             int caveID = 1;
             
             //Read input file
-            string text = System.IO.File.ReadAllText(@"C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\caverns files\input2.cav");
+            string text = System.IO.File.ReadAllText(@"C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\caverns files\input1.cav");
             Console.WriteLine("Raw data: " + text);
 
             //convert data to an array
             String[] data = text.Split(',');
-            Console.WriteLine(data[0] + ' ' + data[1]);
 
             //extract data from the array
             int noOfCaves = Int16.Parse(data[0]);
@@ -74,11 +73,11 @@ namespace ai4_maria
             }
 
             //find if caves are connected with caveIDs
-            int cave1 = 11;
-            int cave2 = 12;
+            int cave1 = 7;
+            int cave2 = 7;
 
             Boolean areConnected = connected[cave1 - 1][cave2 - 1];
-            Console.WriteLine("Cave " + cave1 + " and cave " + cave2 + " are connected: " + areConnected);
+            //Console.WriteLine("Cave " + cave1 + " and cave " + cave2 + " are connected: " + areConnected);
 
 
             //Generate toCavesList
@@ -92,11 +91,11 @@ namespace ai4_maria
                     if (c.CaveID == i)
                     {
                         tempCave = c;
-                        Console.WriteLine("tempCave: " + tempCave.toString());
+                        //Console.WriteLine("tempCave: " + tempCave.toString());
                     }
                 }
 
-                for(int j = 1; j < caves.Count(); j++)
+                for(int j = 1; j < caves.Count() + 1; j++)
                 {
                     foreach (Cave d in caves)
                     {
@@ -109,15 +108,15 @@ namespace ai4_maria
 
                     int cave1ID = tempCave.CaveID;
                     int cave2ID = possibleChild.CaveID;
-                    //Console.WriteLine("set caves ids");
+                    //Console.WriteLine("parent "+cave1ID+", possible child: "+cave2ID);
 
                     Boolean check = connected[cave1ID - 1][cave2ID - 1];
-                    Console.WriteLine("check: " + check);
+                    //Console.WriteLine("check: " + check);
 
                     if (!tempCave.Equals(possibleChild) && check)
                     {
                         tempCave.addToCavesList(possibleChild);
-                        Console.WriteLine("possible child added");
+                        //Console.WriteLine("tempCave: "+ tempCave.CaveID + ", possibleChild: "+possibleChild.CaveID);
                     }
                 }
 
@@ -130,14 +129,122 @@ namespace ai4_maria
 
             }
 
+
+
+
             
+            //Call A* function
+            Cave startCave = caves[0];
+            Console.WriteLine("startCave: "+startCave.CaveID);
+            Cave endCave = caves[caves.Count - 1];
+            Console.WriteLine("endCave: "+endCave.CaveID);
 
-
-
+            List<Cave> aStarCaves = AstarSearch(startCave, endCave);
 
 
             Console.ReadKey();
 
         }
+
+        static List<Cave> AstarSearch(Cave startCave, Cave endCave)
+        {
+            /*
+            MethodsAStar open = new MethodsAStar();
+            MethodsAStar closed = new MethodsAStar();
+
+            open.addCave(startCave);
+
+            Cave currentCave = startCave;
+
+            while (currentCave != endCave)
+            {
+
+            }
+            */
+
+            //  DARWONS
+            MethodsAStar open = new MethodsAStar();
+            MethodsAStar closed = new MethodsAStar();
+            
+            open.addCave(startCave);
+
+            while(open.size() > 0)
+            {
+                Cave currentCave = open.pop();
+
+                if (currentCave.Equals(endCave))
+                {
+                    return printSolutionPath(endCave);
+                }
+
+                closed.addCave(currentCave);
+                //Console.WriteLine("closed.size = " + closed.size());
+
+                //print open and closed lists
+                Console.WriteLine("Open list:");
+                foreach (Cave c in open.listOfCaves)
+                {
+                    Console.WriteLine(c.CaveID);
+                }
+                Console.WriteLine("Closed list:");
+                foreach (Cave c in closed.listOfCaves)
+                {
+                    Console.WriteLine(c.CaveID);
+                }
+
+                List<Cave> children = currentCave.ToCavesList;
+
+                foreach (Cave currentChild in children)
+                {
+                    Console.WriteLine("currentChild: "+currentChild.CaveID);
+                    //if currentCave is not in the open list
+                    if ( !(open.findCave(currentCave.CaveID) != null))
+                    {
+                        currentChild.FromCave = currentCave;
+                        currentChild.setHeuristicCostToGoal(endCave);
+                        currentChild.setGCostTo(currentCave);
+                        Console.WriteLine("currentChild: " + currentChild.CaveID + ", G value: " + currentChild.G_value+ ", H value: "+currentChild.hValue);
+
+
+                        open.addCave(currentChild);
+                    }
+                    else
+                    {
+                        if (currentChild.G_value > currentChild.calculateGCostTo(currentCave))
+                        {
+                            currentChild.FromCave = currentCave;
+                            currentChild.setGCostTo(currentCave);
+                        }
+                    }
+                }
+
+            }
+            return null;
+            
+        }
+        
+        static List<Cave> printSolutionPath(Cave endCave)
+        {
+            Cave solutionCave = endCave;
+            List<Cave> solutionPath = new List<Cave>();
+
+            while (solutionCave != null)
+            {
+                solutionPath.Add(solutionCave);
+                solutionCave = solutionCave.FromCave;
+                break;
+            }
+
+            solutionPath.Reverse();
+
+            foreach(Cave c in solutionPath)
+            {
+                Console.WriteLine("cave in solution path: "+c.CaveID);
+            }
+
+            return solutionPath;
+        }
     }
 }
+
+//friday 9 march

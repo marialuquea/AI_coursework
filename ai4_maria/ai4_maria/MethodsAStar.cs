@@ -45,6 +45,13 @@ namespace ai4_maria
 
         public void addCave(Cave c)
         {
+            //if list doesn't contain Cave c
+            while (list.Contains(c) == false)
+            {
+                list.Add(c);
+                orderByTotalCost(list);
+            }
+            /*
             if (list.Count == 0)
             {
                 list.Add(c);
@@ -52,11 +59,11 @@ namespace ai4_maria
             else
             {
                 list.Add(c);
-
                 list.Sort((x, y) => x.getTotalCost().CompareTo(y.getTotalCost()));
             }
+            */
         }
-        
+
         public Cave pop()
         {
             Cave c = list[0];
@@ -64,5 +71,40 @@ namespace ai4_maria
             return c;
         }
 
+        public int size()
+        {
+            return list.Count;
+        }
+
+        public List<Cave> listOfCaves
+        {
+            get { return list; }
+        }
+
+        //NOT USED
+        public static double compare(Cave x, Cave y)
+        {
+            return ((Cave)x).getTotalCost() - ((Cave)y).getTotalCost();
+        }
+
+        //USED
+        public static List<Cave> orderByTotalCost(List<Cave> cavesList)
+        {
+            List<Cave> orderedList = new List<Cave>();
+
+            var totalCosts = from cave in cavesList
+                             orderby cave.getTotalCost()
+                             select cave;
+
+            foreach(Cave c in totalCosts)
+            {
+                orderedList.Add(c);
+            }
+
+            return orderedList;
+        }
+
     }
+
+    //friday 9 march
 }

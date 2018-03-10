@@ -45,27 +45,32 @@ namespace ai4_maria
         }
 
         // G value
-        public double getG_value
+        public double G_value
         {
             get { return _g; }
         }
 
+        public double hValue
+        {
+            get { return _h; }
+        }
+
         public double calculateGCostTo(Cave c)
         {
-            double distance = System.Math.Sqrt((this._x * c._x) + (this._y * c._y));
-            return (c._g + distance);
+                double distance = System.Math.Sqrt(((this._x - c._x) * (this._x - c._x)) + ((this._y * c._y) * (this._y * c._y)));
+                return (c._g + distance);
         }
 
         public void setGCostTo(Cave c)
         {
-            double distance = System.Math.Sqrt((this._x * c._x) + (this._y * c._y));
-            this._g = (c._g + distance);
+                double distance = System.Math.Sqrt(((this._x - c._x) * (this._x - c._x)) + ((this._y * c._y) * (this._y * c._y)));
+                this._g = (c._g + distance);
         }
 
         // H value
         public void setHeuristicCostToGoal(Cave c)
         {
-            double distance = System.Math.Sqrt((this._x * c._x) + (this._y * c._y));
+            double distance = System.Math.Sqrt(((this._x - c._x) * (this._x - c._x)) + ((this._y * c._y) * (this._y * c._y)));
             this._h = distance;
         }
 
@@ -96,8 +101,8 @@ namespace ai4_maria
         // ToString
         public string toString()
         {
-            return "Cave { x = " + _x + 
-                ", y = " + _y + 
+            return "Cave { x = " + _x +
+                ", y = " + _y +
                 ", caveID = " + _caveID + "}";
         }
 
@@ -120,3 +125,5 @@ namespace ai4_maria
         }
     }
 }
+
+//friday 9 march
