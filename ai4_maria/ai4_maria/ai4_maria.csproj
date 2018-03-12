@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cave.cs" />
+    <Compile Include="CaveComparer.cs" />
     <Compile Include="MethodsAStar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

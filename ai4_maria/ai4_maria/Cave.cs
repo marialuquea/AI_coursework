@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace ai4_maria
         private double _h;
 
         private Cave _fromCave;
-        private List<Cave> _toCavesList = new List<Cave>();
+        private ArrayList _toCavesList = new ArrayList();
 
         public Cave(int x, int y, int caveID)
         {
@@ -75,9 +76,9 @@ namespace ai4_maria
         }
 
         // Total cost
-        public double getTotalCost()
+        public int getTotalCost()
         {
-            return (_g + _h);
+            return (int)(_g + _h);
         }
 
         // From cave
@@ -93,7 +94,7 @@ namespace ai4_maria
             this._toCavesList.Add(c);
         }
 
-        public List<Cave> ToCavesList
+        public ArrayList ToCavesList
         {
             get { return _toCavesList; }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,20 +11,25 @@ namespace ai4_maria
     {
         //SortedCaveList
 
-        List<Cave> list;
+        ArrayList list;
+        CaveComparer _caveComparer;
+        
 
         public MethodsAStar()
         {
-            list = new List<Cave>();
+            list = new ArrayList();
+            _caveComparer = new CaveComparer();
         }
 
-        public List<Cave> getList
+        public ArrayList getList
         {
             get { return list; }
         }
 
-        public Cave findCave(int index)
+        public Cave FindCave(int index)
         {
+
+
             foreach(Cave c in list)
             {
                 if (c.CaveID == index)
@@ -36,7 +42,7 @@ namespace ai4_maria
 
         public void removeCave(int index)
         {
-            Cave c = this.findCave(index);
+            Cave c = this.FindCave(index);
             if (c != null)
             {
                 list.Remove(c);
@@ -45,13 +51,29 @@ namespace ai4_maria
 
         public void addCave(Cave c)
         {
+            
+            int k = list.BinarySearch(c, _caveComparer);
+
+            if (k == -1) // no element
+                list.Insert(0, c);
+            else if (k < 0) // find location by complement
+            {
+                k = ~k;
+                list.Insert(k, c);
+            }
+            else if (k >= 0)
+                list.Insert(k, c);
+            
+
+
+            /*
             //if list doesn't contain Cave c
             while (list.Contains(c) == false)
             {
                 list.Add(c);
-                orderByTotalCost(list);
+                list = orderByTotalCost(list);
             }
-            /*
+            
             if (list.Count == 0)
             {
                 list.Add(c);
@@ -62,13 +84,15 @@ namespace ai4_maria
                 list.Sort((x, y) => x.getTotalCost().CompareTo(y.getTotalCost()));
             }
             */
+
+
         }
 
         public Cave pop()
         {
-            Cave c = list[0];
-            list.Remove(list[0]);
-            return c;
+            Cave r = (Cave)list[0];
+            list.RemoveAt(0);
+            return r;
         }
 
         public int size()
@@ -76,21 +100,23 @@ namespace ai4_maria
             return list.Count;
         }
 
-        public List<Cave> listOfCaves
+        public ArrayList listOfCaves
         {
             get { return list; }
         }
 
         //NOT USED
-        public static double compare(Cave x, Cave y)
+        public double compare(Cave x, Cave y)
         {
-            return ((Cave)x).getTotalCost() - ((Cave)y).getTotalCost();
+            return x.getTotalCost() - y.getTotalCost();
         }
 
+
+        /*
         //USED
-        public static List<Cave> orderByTotalCost(List<Cave> cavesList)
+        public  ArrayList orderByTotalCost(ArrayList cavesList)
         {
-            List<Cave> orderedList = new List<Cave>();
+            ArrayList orderedList = new ArrayList();
 
             var totalCosts = from cave in cavesList
                              orderby cave.getTotalCost()
@@ -99,11 +125,24 @@ namespace ai4_maria
             foreach(Cave c in totalCosts)
             {
                 orderedList.Add(c);
+                Console.WriteLine(c.CaveID + " " + c.G_value);
             }
 
+            foreach(Cave e in orderedList)
+            {
+           //     Console.WriteLine(e.toString());
+            }
+            Console.WriteLine("-----------");
             return orderedList;
+            
         }
 
+        public int Compare(object x, object y)
+        {
+            throw new NotImplementedException();
+        }
+
+    */
     }
 
     //friday 9 march
