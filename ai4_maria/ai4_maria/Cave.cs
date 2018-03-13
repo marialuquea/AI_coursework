@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ai4_maria
 {
@@ -26,69 +22,47 @@ namespace ai4_maria
             _y = y;
             _caveID = caveID;
         }
-        // x, y and caveID
-        public int getX
-        {
-            get { return _x; }
-            set { _x = value; }
-        }
-
-        public int getY
-        {
-            get { return _y; }
-            set { _y = value; }
-        }
-
+        
         public int CaveID
         {
             get { return _caveID; }
             set { _caveID = value; }
         }
-
-        // G value
-        public double G_value
+        
+        public double g_value
         {
             get { return _g; }
         }
 
-        public double hValue
-        {
-            get { return _h; }
-        }
-
         public double calculateGCostTo(Cave c)
         {
-                double distance = System.Math.Sqrt(((this._x - c._x) * (this._x - c._x)) + ((this._y * c._y) * (this._y * c._y)));
-                return (c._g + distance);
+            double distance = Math.Sqrt(Math.Pow(this._x - c._x, 2) + Math.Pow(this._y - c._y, 2));
+            return (c._g + distance);
         }
 
         public void setGCostTo(Cave c)
         {
-                double distance = System.Math.Sqrt(((this._x - c._x) * (this._x - c._x)) + ((this._y * c._y) * (this._y * c._y)));
-                this._g = (c._g + distance);
+            double distance = Math.Sqrt(Math.Pow(this._x - c._x, 2) + Math.Pow(this._y - c._y, 2));
+            this._g = (c._g + distance);
         }
-
-        // H value
+        
         public void setHeuristicCostToGoal(Cave c)
         {
-            double distance = System.Math.Sqrt(((this._x - c._x) * (this._x - c._x)) + ((this._y * c._y) * (this._y * c._y)));
+            double distance = Math.Sqrt(Math.Pow(this._x - c._x, 2) + Math.Pow(this._y - c._y, 2));
             this._h = distance;
         }
-
-        // Total cost
+        
         public int getTotalCost()
         {
             return (int)(_g + _h);
         }
-
-        // From cave
+        
         public Cave FromCave
         {
             set { _fromCave = value; }
             get { return _fromCave; }
         }
-
-        // To caves
+        
         public void addToCavesList(Cave c)
         {
             this._toCavesList.Add(c);
@@ -98,33 +72,13 @@ namespace ai4_maria
         {
             get { return _toCavesList; }
         }
-
-        // ToString
+        
         public string toString()
         {
             return "Cave { x = " + _x +
                 ", y = " + _y +
                 ", caveID = " + _caveID + "}";
         }
-
-        // Equals
-        public Boolean Equals(Cave c)
-        {
-            if (c == null)
-            {
-                return false;
-            }
-
-            if (this._x == c._x && this._y == c._y && this._caveID == c._caveID)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+ 
     }
 }
-
-//friday 9 march
