@@ -1,0 +1,11 @@
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\bin\Release\ai4_maria.exe.config
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\bin\Release\ai4_maria.exe.manifest
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\bin\Release\ai4_maria.application
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\bin\Release\ai4_maria.exe
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\bin\Release\ai4_maria.pdb
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\obj\Release\ai4_maria.csprojResolveAssemblyReference.cache
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\obj\Release\ai4_maria.csproj.CoreCompileInputs.cache
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\obj\Release\ai4_maria.exe.manifest
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\obj\Release\ai4_maria.application
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\obj\Release\ai4_maria.exe
+C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\ai4_maria\obj\Release\ai4_maria.pdb
