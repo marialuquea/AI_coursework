@@ -5,19 +5,19 @@ namespace ai4_maria
     class MethodsAStar
     {
 
-        ArrayList list;
+        ArrayList _listOfCaves;
         CaveComparer _caveComparer;
         
-
         public MethodsAStar()
         {
-            list = new ArrayList();
+            _listOfCaves = new ArrayList();
             _caveComparer = new CaveComparer();
         }
 
+        // return a cave found by its ID or null if not found
         public Cave FindCave(int index)
         {
-            foreach(Cave c in list)
+            foreach(Cave c in _listOfCaves)
             {
                 if (c.CaveID == index)
                 {
@@ -27,37 +27,40 @@ namespace ai4_maria
             return null;
         }
 
+        // add cave and sort list
         public void addCave(Cave c)
         {
-            
-            int k = list.BinarySearch(c, _caveComparer);
+            int k = _listOfCaves.BinarySearch(c, _caveComparer);
 
             if (k == -1) // no element
             {
-                list.Insert(0, c);
+                _listOfCaves.Insert(0, c);
             }
             else if (k < 0) // find location by complement
             {
                 k = ~k;
-                list.Insert(k, c);
+                _listOfCaves.Insert(k, c);
             }
             else if (k >= 0)
             {
-                list.Insert(k, c);
+                _listOfCaves.Insert(k, c);
             }
 
         }
 
-        public Cave pop()
+        // return the Cave with the smallest g value from the list
+        // and remove it from the list
+        public Cave take_smallest()
         {
-            Cave r = (Cave)list[0];
-            list.RemoveAt(0);
+            Cave r = (Cave)_listOfCaves[0];
+            _listOfCaves.RemoveAt(0);
             return r;
         }
 
-        public int size()
+        //return count of items in the list
+        public int count()
         {
-            return list.Count;
+            return _listOfCaves.Count;
         }
         
     }

@@ -19,7 +19,6 @@ namespace ai4_maria
                 int caveID = 1;
 
                 //Read input file
-                //string text = System.IO.File.ReadAllText(@"C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\input2.cav");
                 string text = GetCavesFiles();
 
                 if (text != null)
@@ -123,43 +122,66 @@ namespace ai4_maria
         static ArrayList AstarSearch(Cave startCave, Cave endCave)
         {
             MethodsAStar open = new MethodsAStar();
-            MethodsAStar closed = new MethodsAStar();
-            
+
             open.addCave(startCave);
 
-            while(open.size() > 0)
-            {
-                Cave tempCave = open.pop();
+            MethodsAStar closed = new MethodsAStar();
+            
 
-                if (tempCave.Equals(endCave))
+            while(open.count() != 0)
+            {
+                Cave tempCave = open.take_smallest();
+
+                // if the last node is reached
+                if (tempCave == endCave)
                 {
-                    return printSolutionPath(endCave);
+                    // Find the final path and print
+                    Cave current = endCave;
+
+                    ArrayList answer = new ArrayList();
+
+                    while (current != null)
+                    {
+                        answer.Add(current);
+
+                        current = current.FromCave;
+                    }
+
+                    answer.Reverse();
+
+                    foreach (Cave c in answer)
+                    {
+                        Console.WriteLine("cave in solution path: " + c.CaveID);
+                    }
+
+                    return answer;
                 }
 
                 closed.addCave(tempCave);
 
                 ArrayList to_caves_list = tempCave.ToCavesList;
-
-
-                foreach (Cave currentChild in to_caves_list)
+                
+                foreach (Cave to_cave in to_caves_list)
                 {
-                    if ((closed.FindCave(currentChild.CaveID) == null))
+                    if ((closed.FindCave(to_cave.CaveID) == null))
                     {
-                        //if tempCave is not in the open list
-                        if ((open.FindCave(currentChild.CaveID) == null))
+                        if ((open.FindCave(to_cave.CaveID) == null))
                         {
-                            currentChild.FromCave = tempCave;
-                            currentChild.setHeuristicCostToGoal(endCave);
-                            currentChild.setGCostTo(tempCave);
 
-                            open.addCave(currentChild);
+                            to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
+
+                            to_cave.FromCave = tempCave;
+
+                            open.addCave(to_cave);
+                            
                         }
                         else
                         {
-                            if (currentChild.g_value > currentChild.calculateGCostTo(tempCave))
+                            if (to_cave.g > ((tempCave.g) + to_cave.eucledian(tempCave)))
                             {
-                                currentChild.FromCave = tempCave;
-                                currentChild.setGCostTo(tempCave);
+                                to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
+
+                                to_cave.FromCave = tempCave;
                             }
                         }
                     }
@@ -169,56 +191,33 @@ namespace ai4_maria
 
             }
             return null;
-           
-        }
-        
-        //Print solution path for algorithm
-        static ArrayList printSolutionPath(Cave endCave)
-        {
-            Cave solutionCave = endCave;
-            ArrayList solutionPath = new ArrayList();
-
-            while (solutionCave != null)
-            {
-                solutionPath.Add(solutionCave);
-                solutionCave = solutionCave.FromCave;
-            }
-
-            solutionPath.Reverse();
-
-            foreach(Cave c in solutionPath)
-            {
-                Console.WriteLine("cave in solution path: "+c.CaveID);
-            }
-
-            return solutionPath;
         }
 
         //Read file that user types
         static string GetCavesFiles()
         {
-
             string path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             Console.Write("Name of file you want to check (include extension): ");
+
             string input = Console.ReadLine();
-
-
+            
             try
             {
                 string caverns_path = Path.GetFullPath(Path.Combine(path, @"..\..\..\")) + input;
 
                 string files = System.IO.File.ReadAllText(caverns_path);
-
-                string maria = System.IO.File.ReadAllText(@"C:\Users\Maria\Documents\2nd year\Artificial Intelligence\try2\AI_coursework\ai4_maria\input2.cav");
+                
                 return files;
             }
-            catch(FileNotFoundException ex)
+            catch(FileNotFoundException)
             {
                 Console.WriteLine("File not found... Press enter to try again");
+
                 return null;
             }
         }
         
     }
+    //15 march 2018
 }

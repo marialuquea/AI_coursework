@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="ai4_maria.exe.manifest" size="3464">
+    <dependentAssembly dependencyType="install" codebase="ai4_maria.exe.manifest" size="3463">
       <assemblyIdentity name="ai4_maria.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>J/gOA/PvdPuSzHV7NlQG0foKEtuD0Wfk5H59i+VK+Zw=</dsig:DigestValue>
+        <dsig:DigestValue>Z1s9J5l6DZOgxmENFqqW/n6n23xFyWCo8/xTMtAkV2A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
