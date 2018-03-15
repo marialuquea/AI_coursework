@@ -10,7 +10,6 @@ namespace ai4_maria
 
         public static void Main(string[] args)
         {
-
             Boolean flag = true;
 
             while (flag == true) {
@@ -121,16 +120,39 @@ namespace ai4_maria
         //A star algorithm
         static ArrayList AstarSearch(Cave startCave, Cave endCave)
         {
+            Cave tempCave;
+
             MethodsAStar open = new MethodsAStar();
 
             open.addCave(startCave);
 
             MethodsAStar closed = new MethodsAStar();
             
-
-            while(open.count() != 0)
+            do
             {
-                Cave tempCave = open.take_smallest();
+                tempCave = open.take_smallest();
+
+                closed.addCave(tempCave);
+
+                ArrayList to_caves_list = tempCave.ToCavesList;
+
+                foreach (Cave to_cave in to_caves_list)
+                {
+                    while ((closed.FindCave(to_cave.CaveID) == null) && (open.FindCave(to_cave.CaveID) == null))
+                    {
+                        to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
+
+                        to_cave.FromCave = tempCave;
+
+                        open.addCave(to_cave);
+                    }
+                    if (to_cave.g > ((tempCave.g) + to_cave.eucledian(tempCave)))
+                    {
+                        to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
+
+                        to_cave.FromCave = tempCave;
+                    }
+                }
 
                 // if the last node is reached
                 if (tempCave == endCave)
@@ -142,54 +164,25 @@ namespace ai4_maria
 
                     while (current != null)
                     {
+                        //add from endCave to startCave
                         answer.Add(current);
-
                         current = current.FromCave;
                     }
 
                     answer.Reverse();
 
+                    Console.WriteLine("Solution Path: ");
+
                     foreach (Cave c in answer)
                     {
-                        Console.WriteLine("cave in solution path: " + c.CaveID);
+                        Console.WriteLine(c.CaveID);
                     }
 
                     return answer;
                 }
 
-                closed.addCave(tempCave);
+            } while (open.count() != 0);
 
-                ArrayList to_caves_list = tempCave.ToCavesList;
-                
-                foreach (Cave to_cave in to_caves_list)
-                {
-                    if ((closed.FindCave(to_cave.CaveID) == null))
-                    {
-                        if ((open.FindCave(to_cave.CaveID) == null))
-                        {
-
-                            to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
-
-                            to_cave.FromCave = tempCave;
-
-                            open.addCave(to_cave);
-                            
-                        }
-                        else
-                        {
-                            if (to_cave.g > ((tempCave.g) + to_cave.eucledian(tempCave)))
-                            {
-                                to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
-
-                                to_cave.FromCave = tempCave;
-                            }
-                        }
-                    }
-
-                    
-                }
-
-            }
             return null;
         }
 
@@ -219,5 +212,5 @@ namespace ai4_maria
         }
         
     }
-    //15 march 2018
 }
+//maria
