@@ -122,44 +122,99 @@ namespace ai4_maria
         {
             Cave tempCave;
 
+            //make an open list containing only the starting node
             MethodsAStar open = new MethodsAStar();
-
             open.addCave(startCave);
 
+            //make an empty closed list
             MethodsAStar closed = new MethodsAStar();
             
-            do
+            //while there are nodes in the open list
+            while (open.count() != 0)
             {
+                //consider node with smallest g in the open list
                 tempCave = open.take_smallest();
 
+                //put temp node in the closed list
                 closed.addCave(tempCave);
 
+                //look at all its neighbours
                 ArrayList to_caves_list = tempCave.ToCavesList;
 
+                //for each neighbour of the temp node
                 foreach (Cave to_cave in to_caves_list)
                 {
+
+
+
+                    /* 
+                    //if neighbour has lower g value than temp and is in the closed list
+                    if (to_cave.g > ((tempCave.g) + to_cave.eucledian(tempCave)) && (closed.FindCave(to_cave.CaveID) != null))
+                    {
+                        //replace the neighbour with the new, lower, g value
+                        to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
+
+                        //temp node is now the neighbour's parent
+                        to_cave.FromCave = tempCave;
+
+                    }
+                    // else if temp g value is lower and this neighbour is in the open list
+                    else if (to_cave.g < ((tempCave.g) + to_cave.eucledian(tempCave)) && open.FindCave(to_cave.CaveID) != null)
+                    {
+                        //replace the neighbour with the new, lower, g value
+                        to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
+
+                        //change the neighbour's parent to our temp node
+                        to_cave.FromCave = tempCave;
+                    }
+                    // else if this neighbour is not in both lists
+                    else if ((closed.FindCave(to_cave.CaveID) == null) && (open.FindCave(to_cave.CaveID) == null))
+                    {
+                        //add it to the open list
+                        open.addCave(to_cave);
+
+                        //set its g
+                        to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
+                    }
+
+                    */
+
+
+
+
+
+
+                    //while neighbour not in closed list and not in the open list
                     while ((closed.FindCave(to_cave.CaveID) == null) && (open.FindCave(to_cave.CaveID) == null))
                     {
+                        // set its g
                         to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
 
+                        //change the neighbour's parent to our temp node
                         to_cave.FromCave = tempCave;
 
+                        //add it to the open list
                         open.addCave(to_cave);
                     }
-                    if (to_cave.g > ((tempCave.g) + to_cave.eucledian(tempCave)))
+                    //if neighbour has lower g value than temp  (and is in the closed list)
+                    if (to_cave.g > ((tempCave.g) + to_cave.eucledian(tempCave)) /* && (closed.FindCave(to_cave.CaveID) != null) */ )
                     {
+                        //replace the neighbour with the new, lower, g value
                         to_cave.g = tempCave.g + to_cave.eucledian(tempCave);
 
+                        //temp node is now the neighbour's parent
                         to_cave.FromCave = tempCave;
                     }
+                    
                 }
 
-                // if the last node is reached
+                // if this node is our destination node
                 if (tempCave == endCave)
                 {
-                    // Find the final path and print
+                    // Find the final path by looking at the FromCave feature
                     Cave current = endCave;
 
+                    //create a list of caves to print to the solution
                     ArrayList answer = new ArrayList();
 
                     while (current != null)
@@ -171,6 +226,7 @@ namespace ai4_maria
 
                     answer.Reverse();
 
+                    //Print solution path
                     Console.WriteLine("Solution Path: ");
 
                     foreach (Cave c in answer)
@@ -181,7 +237,7 @@ namespace ai4_maria
                     return answer;
                 }
 
-            } while (open.count() != 0);
+            }
 
             return null;
         }
