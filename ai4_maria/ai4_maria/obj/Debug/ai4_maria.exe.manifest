@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ai4_maria.exe" size="9696">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ai4_maria.exe" size="11232">
       <assemblyIdentity name="ai4_maria" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>G5/fAUn/nfpNaTYiwLWxK3Mu0dflw1BVD4Wfw9ZPK9A=</dsig:DigestValue>
+        <dsig:DigestValue>r+ix9N+LVOyQQRl11ojDrZFKzohMPbGadtFZDJeThq8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

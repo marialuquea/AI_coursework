@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -22,15 +23,16 @@ namespace ai4_maria
                 {
                     Console.WriteLine("wrong mode");
                 }
-                // run the code step by step
-                if (mode == "s")
-                {
-
-                    Console.WriteLine("hi");
-                }
                 // Run the code at once
-                if (mode == "r") 
+                else
                 {
+                    if (mode == "s")
+                    {
+                        Console.WriteLine("--------------------------------------------------");
+                        Console.WriteLine("To step through the program press enter each time.");
+                        Console.WriteLine("--------------------------------------------------");
+                    }
+
                     text = GetCavesFiles();
 
                     if (text != null)
@@ -121,7 +123,7 @@ namespace ai4_maria
                         Cave startCave = (Cave)caves[0];
                         Cave endCave = (Cave)caves[caves.Count - 1];
 
-                        ArrayList aStarCaves = AstarSearch(startCave, endCave);
+                        ArrayList aStarCaves = AstarSearch(startCave, endCave, mode);
                     }
 
                     else
@@ -133,16 +135,27 @@ namespace ai4_maria
         }
 
         //A star algorithm
-        static ArrayList AstarSearch(Cave startCave, Cave endCave)
+        static ArrayList AstarSearch(Cave startCave, Cave endCave, String mode)
         {
             Cave tempCave;
 
             //make an open list containing only the starting node
             MethodsAStar open = new MethodsAStar();
             open.addCave(startCave);
+            if (mode == "s")
+            {
+                Console.WriteLine("Open list: ");
+                Console.WriteLine(" " + startCave.CaveID);
+                Console.ReadKey();
+            }
 
             //make an empty closed list
             MethodsAStar closed = new MethodsAStar();
+            if (mode == "s")
+            {
+                Console.WriteLine("Closed list:");
+                Console.ReadKey();
+            }
             
             //while there are nodes in the open list
             while (open.count() != 0)
@@ -152,6 +165,25 @@ namespace ai4_maria
 
                 //put temp node in the closed list
                 closed.addCave(tempCave);
+
+                if (mode == "s")
+                {
+                    Console.WriteLine("Open list: ");
+                    List<int> openNow = open.printCaves();
+                    foreach (int i in openNow)
+                    {
+                        Console.WriteLine(" " + i);
+                    }
+                    Console.ReadKey();
+                    Console.WriteLine("Closed list: ");
+                    List<int> closedNow = closed.printCaves();
+                    foreach (int i in closedNow)
+                    {
+                        Console.WriteLine(" " + i);
+                    }
+                    Console.ReadKey();
+
+                }
 
                 //look at all its neighbours
                 ArrayList to_caves_list = tempCave.ToCavesList;
@@ -171,6 +203,24 @@ namespace ai4_maria
 
                         //add it to the open list
                         open.addCave(to_cave);
+
+                        if (mode == "s")
+                        {
+                            Console.WriteLine("Open list: ");
+                            List<int> openNow = open.printCaves();
+                            foreach (int i in openNow)
+                            {
+                                Console.WriteLine(" " + i);
+                            }
+                            Console.ReadKey();
+                            Console.WriteLine("Closed list: ");
+                            List<int> closedNow = closed.printCaves();
+                            foreach (int i in closedNow)
+                            {
+                                Console.WriteLine(" " + i);
+                            }
+                            Console.ReadKey();
+                        }
                     }
                     //if neighbour has lower g value than temp  (and is in the closed list)
                     if (to_cave.g > ((tempCave.g) + to_cave.eucledian(tempCave)) /* && (closed.FindCave(to_cave.CaveID) != null) */ )
@@ -203,12 +253,18 @@ namespace ai4_maria
                     answer.Reverse();
 
                     //Print solution path
-                    Console.WriteLine("Solution Path: ");
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine("--------------------");
+                    Console.WriteLine("   SOLUTION PATH: ");
 
                     foreach (Cave c in answer)
                     {
-                        Console.WriteLine(c.CaveID);
+                        Console.WriteLine("    " + c.CaveID);
                     }
+                    Console.WriteLine("--------------------");
+                    Console.WriteLine("");
+                    Console.WriteLine("");
 
                     return answer;
                 }
@@ -217,6 +273,9 @@ namespace ai4_maria
 
             return null;
         }
+
+       
+
 
         // Read mode (run once or run step by step)
         static string GetMode()

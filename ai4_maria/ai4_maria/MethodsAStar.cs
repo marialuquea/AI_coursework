@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace ai4_maria
 {
@@ -61,6 +62,17 @@ namespace ai4_maria
         public int count()
         {
             return _listOfCaves.Count;
+        }
+
+        public List<int> printCaves()
+        {
+            List<int> current = new List<int>(); 
+
+            foreach(Cave c in _listOfCaves)
+            {
+                current.Add(c.CaveID);
+            }
+            return current;
         }
         
     }
