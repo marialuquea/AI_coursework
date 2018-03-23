@@ -3,8 +3,14 @@ using System.Collections;
 
 namespace ai4_maria
 {
+    /*
+     * Author: Maria Luque Anguita 40280156
+     * Description of class: defines Cave object (with properties and methods)
+     * Date last modified: 15/03/2018
+     */
     class Cave
     {
+        //properties of cave objects
         private int _x;
         private int _y;
         private int _caveID;
@@ -12,6 +18,7 @@ namespace ai4_maria
         private ArrayList _toCavesList = new ArrayList();
         private double _g;
 
+        //constructor
         public Cave(int x, int y, int caveID)
         {
             _x = x;
@@ -46,7 +53,7 @@ namespace ai4_maria
             this._toCavesList.Add(c);
         }
 
-        // list of caves it can go to
+        // return list of caves it can go to
         public ArrayList ToCavesList
         {
             get { return _toCavesList; }
