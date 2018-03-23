@@ -330,7 +330,7 @@ namespace ai4_maria
                 // find current directory
                 string path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
                 // go to directory where the files are saved
-                string caverns_path = Path.GetFullPath(Path.Combine(path, @"..\..\..\")) + input;
+                string caverns_path = Path.GetFullPath(path) + @"\" +input;
                 // read text on file
                 string files = System.IO.File.ReadAllText(caverns_path);
                 return files;
